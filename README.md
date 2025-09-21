@@ -1,11 +1,13 @@
-# Instructions to run
+This is a streamlit chatbot
 
-## Install dependencies
+## Instructions to run
+
+### Install dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-## Run streamlit app
+### Run streamlit app
 
 ```bash
 streamlit run streamlit_chatbot.py
