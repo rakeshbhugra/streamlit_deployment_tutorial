@@ -1,10 +1,15 @@
 import streamlit as st
 import litellm
 from dotenv import load_dotenv
+import os
 
 load_dotenv()
 
 def get_ai_response(messages):
+    
+    if os.getenv("OPENAI_API_KEY") is None:
+        st.title("Error: OPENAI_API_KEY not found in environment variables.")
+    
     response = litellm.completion(
         model="gpt-4.1-mini",
         messages=messages
