@@ -1,3 +1,6 @@
-This is my first readme
-second commit
-third commit
+# Instructions to run
+
+## Install dependencies
+```bash
+pip install -r requirements.txt
+```
