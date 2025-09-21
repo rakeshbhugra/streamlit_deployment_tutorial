@@ -1,6 +1,13 @@
 import streamlit as st
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 def main():
+    print(os.getenv("OPENAI_KEY"))
+    st.title(str(os.getenv("OPENAI_KEY")))
+    
     st.set_page_config(
         page_title="AI Chatbot",    # Browser tab title
         page_icon="🤖",           # Browser tab icon
@@ -8,7 +15,7 @@ def main():
     )
 
     # Create the page header
-    st.title("🤖 AI Chatbot")
+    # st.title("🤖 AI Chatbot")
     st.markdown("---")  # Horizontal line separator
 
     if "messages" not in st.session_state:
