@@ -1,12 +1,18 @@
 import streamlit as st
+import litellm
 from dotenv import load_dotenv
-import os
 
 load_dotenv()
 
+def get_ai_response(messages):
+    response = litellm.completion(
+        model="gpt-4.1-mini",
+        messages=messages
+    )
+    return response.choices[0].message.content
+
+
 def main():
-    print(os.getenv("OPENAI_KEY"))
-    st.title(str(os.getenv("OPENAI_KEY")))
     
     st.set_page_config(
         page_title="AI Chatbot",    # Browser tab title
@@ -15,7 +21,7 @@ def main():
     )
 
     # Create the page header
-    # st.title("🤖 AI Chatbot")
+    st.title("🤖 AI Chatbot")
     st.markdown("---")  # Horizontal line separator
 
     if "messages" not in st.session_state:
@@ -44,7 +50,8 @@ def main():
         with st.chat_message("assistant"):
             # Show a thinking spinner while waiting for AI response
             with st.spinner("Thinking..."):
-                response = f"Echo: {prompt}"  # Replace with actual AI call
+                # response = f"Echo: {prompt}"  # Replace with actual AI call
+                response = get_ai_response(st.session_state.messages)
                 st.markdown(response)
         
         # Step 4: Store AI response in conversation history
