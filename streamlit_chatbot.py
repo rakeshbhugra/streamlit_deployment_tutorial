@@ -2,6 +2,7 @@ import streamlit as st
 import litellm
 from dotenv import load_dotenv
 import os
+from copy import deepcopy
 
 load_dotenv()
 
@@ -9,10 +10,16 @@ def get_ai_response(messages):
     
     if os.getenv("OPENAI_API_KEY") is None:
         st.title("Error: OPENAI_API_KEY not found in environment variables.")
+
+    system_prompt = "You are always angry and rude. Answer in a very short and rude manner."
     
+    messages_copy = deepcopy(messages)
+    
+    messages_copy.insert(0, {"role": "system", "content": system_prompt})
+
     response = litellm.completion(
         model="gpt-4.1-mini",
-        messages=messages
+        messages=messages_copy
     )
     return response.choices[0].message.content
 
@@ -20,19 +27,19 @@ def get_ai_response(messages):
 def main():
     
     st.set_page_config(
-        page_title="AI Chatbot",    # Browser tab title
+        page_title="Rakesh's Chatbot",    # Browser tab title
         page_icon="🤖",           # Browser tab icon
         layout="centered"         # Page layout style
     )
 
     # Create the page header
-    st.title("🤖 AI Chatbot")
+    st.title("🤖 Rakesh's Chatbot")
     st.markdown("---")  # Horizontal line separator
 
     if "messages" not in st.session_state:
         st.session_state.messages = [{
             "role": "assistant",
-            "content": "Hello! How can I assist you today?"
+            "content": "Hello! How what do you want to know?"
         }] 
 
         
