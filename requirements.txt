@@ -2,3 +2,4 @@ streamlit
 litellm
 langgraph
 langchain
+langchain-openai
