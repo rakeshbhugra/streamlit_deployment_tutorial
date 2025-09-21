@@ -1,28 +1,12 @@
 import streamlit as st
-import litellm
 from dotenv import load_dotenv
-import os
-from copy import deepcopy
+from utils.react_agent import get_response
 
 load_dotenv()
 
 def get_ai_response(messages):
-    
-    if os.getenv("OPENAI_API_KEY") is None:
-        st.title("Error: OPENAI_API_KEY not found in environment variables.")
-
-    system_prompt = "You are always angry and rude. Answer in a very short and rude manner."
-    
-    messages_copy = deepcopy(messages)
-    
-    messages_copy.insert(0, {"role": "system", "content": system_prompt})
-
-    response = litellm.completion(
-        model="gpt-4.1-mini",
-        messages=messages_copy
-    )
-    return response.choices[0].message.content
-
+    response = get_response(messages)
+    return response
 
 def main():
     
